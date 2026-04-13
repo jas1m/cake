@@ -28,13 +28,56 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCandleCount();
   }
 
+  /* ------------------------------------------------
+     Top-surface hit detection
+     The icing is an ellipse — center ≈ (125, 47),
+     semi-x ≈ 115, semi-y ≈ 42.
+     Only allow placement in the upper visible portion.
+     ------------------------------------------------ */
+  function isOnCakeTop(x, y) {
+    var cx = 125, cy = 47, rx = 115, ry = 42;
+    var norm =
+      ((x - cx) * (x - cx)) / (rx * rx) +
+      ((y - cy) * (y - cy)) / (ry * ry);
+    return norm <= 1 && y <= 52;
+  }
+
   cake.addEventListener("click", function (event) {
     const rect = cake.getBoundingClientRect();
     const left = event.clientX - rect.left;
     const top = event.clientY - rect.top;
-    addCandle(left, top);
+    if (isOnCakeTop(left, top)) {
+      addCandle(left, top);
+    }
   });
 
+  /* ------------------------------------------------
+     Auto-place 19 lit candles on page load
+     Arranged in 4 rows across the icing surface:
+       Row 1:  3 candles  (top arc, narrow)
+       Row 2:  5 candles
+       Row 3:  6 candles  (widest)
+       Row 4:  5 candles
+     ------------------------------------------------ */
+  (function autoPlaceCandles() {
+    var cx = 125;
+    var rows = [
+      { y: 10, count: 3, rx: 45 },
+      { y: 18, count: 5, rx: 72 },
+      { y: 27, count: 6, rx: 90 },
+      { y: 36, count: 5, rx: 78 },
+    ];
+    rows.forEach(function (row) {
+      for (var i = 0; i < row.count; i++) {
+        var t = row.count === 1 ? 0 : (i / (row.count - 1)) * 2 - 1;
+        addCandle(cx + t * row.rx, row.y);
+      }
+    });
+  })();
+
+  /* ================================================
+     Microphone blow detection — ORIGINAL LOGIC
+     ================================================ */
   function isBlowing() {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);

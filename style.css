@@ -1,5 +1,6 @@
 /* ========================================
    Cute Soft Pastel Birthday — Style Sheet
+   Chocolate Cake Edition
    ======================================== */
 
 /* --- Design Tokens --- */
@@ -14,6 +15,15 @@
   --text-soft:   #8C6A7A;
   --text-muted:  #BFA4B2;
   --shadow-soft: rgba(200, 160, 180, 0.25);
+
+  /* Chocolate palette */
+  --choco-dark:    #4a2010;
+  --choco-mid:     #6b3520;
+  --choco-saddle:  #8B4513;
+  --choco-caramel: #c07840;
+  --choco-ganache: #3a1808;
+  --choco-frost:   #5c2a12;
+  --choco-light:   #d49060;
 }
 
 /* --- Reset & Base --- */
@@ -115,7 +125,6 @@ body {
     inset 0 0 0 2px rgba(255, 255, 255, 0.6);
   border: 2px solid transparent;
   background-clip: padding-box;
-  /* Glowing pastel outline via pseudo-element */
 }
 .cake-card::before {
   content: "";
@@ -171,41 +180,43 @@ body {
     0 5px 30px rgba(200, 160, 180, 0.35);
 }
 
-/* Cake layers — soft pastel pinks */
+/* ═══════════════════════════════════
+   🍫  Chocolate Cake Layers
+   ═══════════════════════════════════ */
 .layer {
   position: absolute;
   display: block;
   width: 250px;
   height: 100px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #f8b4c8, #e8899e);
+  background: linear-gradient(180deg, var(--choco-saddle), var(--choco-mid));
   box-shadow:
-    0 2px 0px #e89baf,
-    0 4px 0px #e0879d,
-    0 6px 0px #d9809a,
-    0 8px 0px #d47993,
-    0 10px 0px #cf728d,
-    0 12px 0px #ca6b87,
-    0 14px 0px #c56481,
-    0 16px 0px #c05e7b,
-    0 18px 0px #bb5875,
-    0 20px 0px #b6526f,
-    0 22px 0px #b14c69,
-    0 24px 0px #ac4663,
-    0 26px 0px #a7405d,
-    0 28px 0px #a23a58,
-    0 30px 0px #9d3452;
+    0 2px 0px #7a3d16,
+    0 4px 0px #733814,
+    0 6px 0px #6b3412,
+    0 8px 0px #643010,
+    0 10px 0px #5d2c0e,
+    0 12px 0px #56280c,
+    0 14px 0px #4f240a,
+    0 16px 0px #4a2010,
+    0 18px 0px #451d0e,
+    0 20px 0px #401a0c,
+    0 22px 0px #3b170a,
+    0 24px 0px #381509,
+    0 26px 0px #351308,
+    0 28px 0px #321107,
+    0 30px 0px #2f0f06;
 }
 
 .layer-top    { top: 0px; }
 .layer-middle { top: 33px; }
 .layer-bottom { top: 66px; }
 
-/* Icing — creamy vanilla */
+/* Icing — dark chocolate frosting with caramel highlight */
 .icing {
   top: 2px;
   left: 5px;
-  background: linear-gradient(180deg, #fff5ee, #ffe8d6);
+  background: linear-gradient(180deg, var(--choco-caramel), var(--choco-saddle));
   width: 240px;
   height: 90px;
   border-radius: 50%;
@@ -217,20 +228,20 @@ body {
   right: 5px;
   bottom: 6px;
   left: 5px;
-  background: linear-gradient(180deg, #fffaf5, #fff0e4);
-  box-shadow: 0 0 8px rgba(255, 232, 214, 0.6);
+  background: linear-gradient(160deg, var(--choco-light), var(--choco-caramel));
+  box-shadow: 0 0 8px rgba(192, 120, 64, 0.35);
   border-radius: 50%;
   z-index: 1;
 }
 
-/* Drips — creamy icing drips */
+/* Drips — chocolate ganache dripping */
 .drip {
   display: block;
   width: 50px;
   height: 60px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  background: linear-gradient(180deg, #fff0e4, #ffe0c8);
+  background: linear-gradient(180deg, var(--choco-saddle), var(--choco-ganache));
 }
 
 .drip1 {
@@ -277,7 +288,7 @@ body {
   background: linear-gradient(180deg, #e8d5f5, #c9a8e0);
 }
 
-/* Alternate candle colours on nth-child */
+/* Alternate candle colours */
 .candle:nth-child(6n+5) {
   background: linear-gradient(180deg, var(--blush), #f0a8bc);
 }
@@ -374,12 +385,36 @@ body {
   font-size: 15px;
   font-weight: 400;
   color: var(--text-muted);
-  margin: 0 20px 60px;
+  margin: 0 20px 30px;
   animation: hintPulse 3s ease-in-out infinite;
 }
 @keyframes hintPulse {
   0%, 100% { opacity: 0.7; }
   50%      { opacity: 1; }
+}
+
+/* --- Personal Message --- */
+.personal-message {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  line-height: 1.85;
+  color: #C47A90;
+  letter-spacing: 0.3px;
+}
+
+.personal-message .love-line {
+  display: block;
+  margin-top: 18px;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  font-weight: 700;
+  color: #E88DA5;
+  text-shadow: 0 0 14px rgba(232, 141, 165, 0.3);
 }
 
 /* --- Responsive --- */
@@ -391,5 +426,8 @@ body {
   }
   .hero-title {
     margin-top: 40px;
+  }
+  .personal-message {
+    padding: 0 16px;
   }
 }
