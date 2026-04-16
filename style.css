@@ -550,35 +550,34 @@ body {
 /* --- Heart Seal on the flap (centered at triangle tip) --- */
 .heart-seal {
   position: absolute;
-  bottom: 6px;
+  bottom: 2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 26px;
+  width: 40px;
+  height: 36px;
   z-index: 4;
 }
 
 .heart-seal::before,
 .heart-seal::after {
-  content: "";
+  content: '';
   position: absolute;
-  width: 16px;
-  height: 24px;
-  border-radius: 16px 16px 0 0;
-  background: linear-gradient(180deg, #e8607a, #d44060);
-  box-shadow: 0 2px 8px rgba(212, 64, 96, 0.35);
+  width: 20px;
+  height: 32px;
+  background: #e05a7a;
+  border-radius: 20px 20px 0 0;
 }
 
 .heart-seal::before {
-  left: 0;
+  left: 20px;
+  transform-origin: 0 100%;
   transform: rotate(-45deg);
-  transform-origin: bottom right;
 }
 
 .heart-seal::after {
-  right: 0;
+  left: 0;
+  transform-origin: 100% 100%;
   transform: rotate(45deg);
-  transform-origin: bottom left;
 }
 
 /* --- Hint Text --- */
@@ -720,15 +719,16 @@ body {
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Heart burst particles (pseudo-element on envelope) --- */
-.intro-opened .envelope-body::after {
+/* --- Heart burst particles (pseudo-element on envelope, above flap) --- */
+.intro-opened .intro-envelope::after {
   content: "💖✨💕";
   position: absolute;
-  top: -20px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   font-size: 24px;
   letter-spacing: 8px;
+  z-index: 5;
   animation: heartBurst 0.8s ease 0.5s both;
   pointer-events: none;
 }

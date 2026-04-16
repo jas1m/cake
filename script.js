@@ -109,21 +109,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(function (stream) {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioContext.createAnalyser();
-        microphone = audioContext.createMediaStreamSource(stream);
-        microphone.connect(analyser);
-        analyser.fftSize = 256;
-        setInterval(blowOutCandles, 200);
-      })
-      .catch(function (err) {
-        console.log("Unable to access microphone: " + err);
-      });
+  /* Defer mic init until after the envelope intro animation completes
+     so the browser mic prompt doesn't fire on page load and candles
+     aren't blown out before the user even sees them. */
+  function initBlowDetection() {
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then(function (stream) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          microphone = audioContext.createMediaStreamSource(stream);
+          microphone.connect(analyser);
+          analyser.fftSize = 256;
+          setInterval(blowOutCandles, 200);
+        })
+        .catch(function (err) {
+          console.log("Unable to access microphone: " + err);
+        });
+    } else {
+      console.log("getUserMedia not supported on your browser!");
+    }
+  }
+
+  /* If there's no intro overlay, init mic immediately;
+     otherwise wait until the intro animation finishes (~3s after click). */
+  var introOverlay = document.getElementById('introOverlay');
+  if (!introOverlay) {
+    initBlowDetection();
   } else {
-    console.log("getUserMedia not supported on your browser!");
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (document.body.classList.contains('intro-opened')) {
+          observer.disconnect();
+          setTimeout(initBlowDetection, 3000);
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   }
 });
