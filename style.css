@@ -431,3 +431,316 @@ body {
     padding: 0 16px;
   }
 }
+
+
+/* ========================================================
+   💌  INTRO / LOVE LETTER ENVELOPE SEQUENCE
+   Pure additive layer — does NOT change any existing rules
+   ======================================================== */
+
+/* --- Hide birthday content until envelope is opened --- */
+.intro-reveal {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Fullscreen Overlay --- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--cream) 0%, var(--blush) 40%, var(--lavender) 80%, var(--peach) 100%);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+/* --- Envelope Container --- */
+.intro-envelope {
+  position: relative;
+  width: 240px;
+  height: 160px;
+  cursor: pointer;
+  animation: envelopeFloat 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 8px 30px rgba(200, 140, 170, 0.35));
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+/* --- Envelope Body (rectangle) --- */
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(170deg, #fff 0%, #fef6f8 50%, #fdf0f5 100%);
+  border-radius: 4px 4px 14px 14px;
+  box-shadow:
+    inset 0 -6px 20px rgba(242, 166, 184, 0.12),
+    0 4px 20px rgba(200, 140, 170, 0.2);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.envelope-inner-shadow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(232, 213, 245, 0.15) 100%);
+  pointer-events: none;
+}
+
+/* Small letter peeking inside */
+.envelope-letter {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 90px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(200, 140, 170, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.letter-heart {
+  font-size: 28px;
+  animation: letterPulse 2s ease-in-out infinite;
+}
+
+@keyframes letterPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.12); }
+}
+
+/* --- Envelope Flap (triangular top) --- */
+.envelope-flap {
+  position: absolute;
+  top: 30px;  /* flush with body top (160 - 130 = 30px) */
+  left: 0;
+  width: 100%;
+  height: 80px;
+  transform-origin: top center;
+  z-index: 3;
+  transition: transform 0.5s cubic-bezier(0.33, 1.2, 0.68, 1);
+}
+
+/* Downward-pointing triangle — base at body top, tip into body center */
+.envelope-flap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #fef0f3 20%, #fdf2f5 100%);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+/* --- Heart Seal on the flap (centered at triangle tip) --- */
+.heart-seal {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 26px;
+  z-index: 4;
+}
+
+.heart-seal::before,
+.heart-seal::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 24px;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(180deg, #e8607a, #d44060);
+  box-shadow: 0 2px 8px rgba(212, 64, 96, 0.35);
+}
+
+.heart-seal::before {
+  left: 0;
+  transform: rotate(-45deg);
+  transform-origin: bottom right;
+}
+
+.heart-seal::after {
+  right: 0;
+  transform: rotate(45deg);
+  transform-origin: bottom left;
+}
+
+/* --- Hint Text --- */
+.intro-hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: var(--rose-deep);
+  margin-top: 28px;
+  opacity: 0;
+  animation: hintFadeIn 1s ease 1s forwards;
+  text-shadow: 0 0 12px rgba(242, 166, 184, 0.3);
+  letter-spacing: 1px;
+}
+
+@keyframes hintFadeIn {
+  to { opacity: 1; }
+}
+
+/* --- Sparkle Dots around Envelope --- */
+.intro-sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 0 6px rgba(255, 217, 142, 0.7),
+    0 0 16px rgba(242, 166, 184, 0.4);
+  animation: sparkleGlow 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.intro-sparkle.s1 { top: calc(50% - 120px); left: calc(50% - 140px); animation-delay: 0s; }
+.intro-sparkle.s2 { top: calc(50% - 80px);  left: calc(50% + 140px); animation-delay: 0.4s; }
+.intro-sparkle.s3 { top: calc(50% + 60px);  left: calc(50% - 160px); animation-delay: 0.8s; }
+.intro-sparkle.s4 { top: calc(50% + 100px); left: calc(50% + 120px); animation-delay: 1.2s; }
+.intro-sparkle.s5 { top: calc(50% - 40px);  left: calc(50% + 170px); animation-delay: 0.6s; width: 4px; height: 4px; }
+.intro-sparkle.s6 { top: calc(50% + 40px);  left: calc(50% - 180px); animation-delay: 1.0s; width: 4px; height: 4px; }
+
+@keyframes sparkleGlow {
+  0%, 100% { opacity: 0.3; transform: scale(0.7); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+
+/* ========================================================
+   🎂  ON CLICK — REVEAL ANIMATIONS
+   Triggered by body.intro-opened class
+   ======================================================== */
+
+/* --- Step 1: Flap opens upward --- */
+.intro-opened .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+/* --- Step 2 & 3: Heart burst, then envelope fades out --- */
+.intro-opened .intro-envelope {
+  animation:
+    envelopeFloat 3.5s ease-in-out infinite,
+    envelopeBurst 1.2s ease 0.5s forwards;
+}
+
+@keyframes envelopeBurst {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  30%  { transform: translateY(-10px) scale(1.12); opacity: 1; }
+  100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+}
+
+/* Hide hint immediately */
+.intro-opened .intro-hint {
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide sparkles */
+.intro-opened .intro-sparkle {
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Fade overlay out */
+.intro-opened .intro-overlay,
+.intro-opened #introOverlay {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease 1s, visibility 0.6s ease 1s;
+}
+
+/* --- Step 4: Cake pops up with spring bounce --- */
+.intro-opened .reveal-cake {
+  opacity: 1;
+  pointer-events: auto;
+  animation: cakePopUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s both;
+}
+
+@keyframes cakePopUp {
+  0%   { opacity: 0; transform: translateY(120px) scale(0.6); }
+  60%  { opacity: 1; transform: translateY(-12px) scale(1.04); }
+  80%  { transform: translateY(4px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Step 5: Title slides down from above --- */
+.intro-opened .reveal-title {
+  opacity: 1;
+  pointer-events: auto;
+  animation: titleSlideIn 0.6s cubic-bezier(0.33, 1, 0.68, 1) 1.7s both;
+}
+
+@keyframes titleSlideIn {
+  0%   { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Step 6: Staggered fade-in for remaining elements --- */
+.intro-opened .reveal-candles {
+  opacity: 1;
+  pointer-events: auto;
+  animation: softFadeIn 0.5s ease 2.0s both;
+}
+
+.intro-opened .reveal-blow {
+  opacity: 1;
+  pointer-events: auto;
+  animation: softFadeIn 0.5s ease 2.3s both;
+}
+
+.intro-opened .reveal-message {
+  opacity: 1;
+  pointer-events: auto;
+  animation: softFadeIn 0.5s ease 2.6s both;
+}
+
+@keyframes softFadeIn {
+  0%   { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Heart burst particles (pseudo-element on envelope) --- */
+.intro-opened .envelope-body::after {
+  content: "💖✨💕";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  letter-spacing: 8px;
+  animation: heartBurst 0.8s ease 0.5s both;
+  pointer-events: none;
+}
+
+@keyframes heartBurst {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.4); }
+  40%  { opacity: 1; transform: translateX(-50%) translateY(-30px) scale(1.2); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-70px) scale(0.8); }
+}
+
+/* Keep existing hero title animation working after reveal */
+.intro-opened .reveal-title {
+  animation: titleSlideIn 0.6s cubic-bezier(0.33, 1, 0.68, 1) 1.7s both,
+             titleFloat 4s ease-in-out 2.3s infinite;
+}

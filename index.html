@@ -1,65 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Happy Birthday Ammukutty 💌💖</title>
-    <meta name="description" content="A cute pastel birthday celebration for Ammukutty — blow out the candles!" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-  </head>
-  <body>
 
-    <!-- Animated background layers -->
-    <canvas id="balloonCanvas"></canvas>
-    <canvas id="sparkleCanvas"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Ammukutty 💌💖</title>
+  <meta name="description" content="A cute pastel birthday celebration for Ammukutty — blow out the candles!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Outfit:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+</head>
 
-    <!-- Hero title -->
-    <h1 class="hero-title">Happy Birthday Ammukutty 💌💖</h1>
+<body>
 
-    <!-- Candle counter pill -->
-    <div class="candle-count-display">
-      🕯️ Candles: <span id="candleCount">0</span>
-    </div>
-
-    <!-- Cake card -->
-    <div class="cake-card">
-      <p class="cake-hint">tap the cake to add candles ✨</p>
-      <div class="cake">
-        <div class="plate"></div>
-        <div class="layer layer-bottom"></div>
-        <div class="layer layer-middle"></div>
-        <div class="layer layer-top"></div>
-        <div class="icing"></div>
-        <div class="drip drip1"></div>
-        <div class="drip drip2"></div>
-        <div class="drip drip3"></div>
+  <!-- ✉️ Intro Love Letter Overlay -->
+  <div id="introOverlay" class="intro-overlay">
+    <div id="introEnvelope" class="intro-envelope">
+      <!-- Envelope body -->
+      <div class="envelope-body">
+        <div class="envelope-inner-shadow"></div>
+        <!-- Small letter peeking out -->
+        <div class="envelope-letter">
+          <span class="letter-heart">💖</span>
+        </div>
+      </div>
+      <!-- Envelope flap (triangle) -->
+      <div class="envelope-flap">
+        <div class="heart-seal"></div>
       </div>
     </div>
+    <p class="intro-hint">open me ☺️</p>
+    <!-- Sparkle accents around envelope -->
+    <div class="intro-sparkle s1"></div>
+    <div class="intro-sparkle s2"></div>
+    <div class="intro-sparkle s3"></div>
+    <div class="intro-sparkle s4"></div>
+    <div class="intro-sparkle s5"></div>
+    <div class="intro-sparkle s6"></div>
+  </div>
 
-    <p class="blow-hint">🎤 Blow into your mic to extinguish the candles!</p>
+  <!-- Animated background layers -->
+  <canvas id="balloonCanvas"></canvas>
+  <canvas id="sparkleCanvas"></canvas>
 
-    <!-- Personal message -->
-    <div class="personal-message">
-      happyy 19th birthdayy ammunjeyyyy ☺️🥹💞~<br/>
-      may your year be wonderful and filled with joy, let's heal our sorrows together 🫂☺️<br/>
-      Ennumm kude indavuttoo ammuttyde kudeeyy, ammuttyde ettan aayitt ☺️🥹💞💌
-      <span class="love-line">Loveyouuusooomuchhh ☺️💖😚🫂</span>
+  <!-- Hero title -->
+  <h1 class="hero-title intro-reveal reveal-title">Happy Birthday Ammukutty 💌💖</h1>
+
+  <!-- Candle counter pill -->
+  <div class="candle-count-display intro-reveal reveal-candles">
+    🕯️ Candles: <span id="candleCount">0</span>
+  </div>
+
+  <!-- Cake card -->
+  <div class="cake-card intro-reveal reveal-cake">
+    <p class="cake-hint">tap the cake to add candles ✨</p>
+    <div class="cake">
+      <div class="plate"></div>
+      <div class="layer layer-bottom"></div>
+      <div class="layer layer-middle"></div>
+      <div class="layer layer-top"></div>
+      <div class="icing"></div>
+      <div class="drip drip1"></div>
+      <div class="drip drip2"></div>
+      <div class="drip drip3"></div>
     </div>
+  </div>
 
-    <!-- Background animation script (balloons + sparkles) -->
-    <script src="./bg.js"></script>
-    <!-- Original logic -->
-    <script src="script.js"></script>
-  </body>
+  <p class="blow-hint intro-reveal reveal-blow">🎤 Blow into your mic to extinguish the candles!</p>
+
+  <!-- Personal message -->
+  <div class="personal-message intro-reveal reveal-message">
+    happyy 19th birthdayy ammunjeyyyy ☺️🥹💞~<br />
+    may your year be wonderful and filled with joy, let's heal our sorrows together 🫂☺️<br />
+    Ennumm kude indavuttoo ammuttyde kudeeyy, ammuttyde ettan aayitt ☺️🥹💞💌
+    <span class="love-line">Loveyouuusooomuchhh ☺️💖😚🫂</span>
+  </div>
+
+  <!-- Background animation script (balloons + sparkles) -->
+  <script src="./bg.js"></script>
+  <!-- Intro envelope handler (no existing logic touched) -->
+  <script src="./intro.js"></script>
+  <!-- Original logic -->
+  <script src="script.js"></script>
+</body>
+
 </html>
